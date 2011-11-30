@@ -1,14 +1,73 @@
-<h1>What's New in A Spec</h1>
+<h1>EcmaScript Sixth Edition</h1>
 
 <ul>
-<li><a href="./dom4">dom4</a></li>
-<li><a href="./es6">es6</a></li>
-<li><a href="./xhr2">xhr2</a></li>
+<li><p><code>let</code>, <code>const</code> (define block-local vars), <code>function</code> in block scope</p></li>
+<li><p>destructuring: <code>let {x, y} = pt;  let [s, v, o] = triple();</code>
+(assuming <code>let pt = {x:2, y:-5}</code>, for instance).</p></li>
+<li><p>parameter default values: <code>function f(x, y=1, z=0) {⋯}</code></p></li>
+<li><p>rest: <code>function g(i, j, ...r)  { return r.slice(i, j); }</code>
+(instead of using <code>arguments</code> like a madman).</p></li>
+<li><p>spread: <code>let a = [0,1,2,3],  o = new Something(...a);</code></p></li>
+<li><p>proxies: <code>let obj = Proxy.create(handler, proto)</code>.
+Long story short: ~ operator overloading with object-like elements.</p></li>
+<li><p>weak map: <code>let map = new WeakMap</code>.
+Use it if you have circular references in it.</p></li>
+<li><p>generators: <code>function* gen()  { yield 1; yield 2; }</code>
+Actually, <code>gen()</code> returns ~ an object with a <code>next()</code> function property.</p></li>
+<li><p>iterators: <code>for (var [key, val] of items(x))  { alert(key + ',' + val); }</code>.
+Iterators can be generators or proxies.</p></li>
+<li><p>array and generator comprehension:
+<code>[a+b for (a in A) for (b in B)]</code> (array comprehension),
+<code>(x for (x of generateValues()) if (x.color === 'blue'))</code> (generator
+expression).</p></li>
+<li><p>binary data: <code>const Pixel = new StructType({x:uint32, y:uint32, color:Color})</code>
+(if <code>Color</code> is itself a <code>StructType</code>), <code>new ArrayType(Pixel, 3)</code>.</p></li>
+<li><p>class syntax, with <code>extends</code>, <code>prototype</code>, and <code>super</code>:</p>
+
+<pre><code>class Point extends Base {
+  constructor(x,y) {
+    super();
+    this[px] = x, this[py] = y;
+    this.r = function() { return Math.sqrt(x*x + y*y); }
+  }
+  get x() { return this[px]; }
+  get y() { return this[py]; }
+  proto_r() { return Math.sqrt(this[px] * this[px] +
+      this[py] * this[py]); }
+  equals(p) { return this[px] === p[px] &amp;&amp;
+      this[py] === p[py]; }
+}
+</code></pre></li>
+<li><p>modules:</p>
+
+<pre><code>module math {
+  export function sum(x, y) {
+    return x + y;
+  }
+  export var pi = 3.141593;
+}
+
+
+import {sum, pi} from math;
+alert(sum(pi,pi));
+</code></pre></li>
+<li><p>quasis: multiline, substitution-ready strings with extensibility.
+<code>`You are ${age} years old.`</code>.</p>
+
+<pre><code>// The following regexp spans multiple lines.
+re`line1: (words )*
+line2: \w+`
+
+
+// It desugars to:
+re({raw:'line1: (words )*\nline2: \w+',
+    cooked:'line1: (words )*\nline2: \w+'})
+</code></pre></li>
 </ul>
 
-<p>We list the new stuff that comes with more recent specifications, relative to
-the previous version (whatever "version" means nowadays).</p>
+<hr />
 
-<p>I will happily receive any request for changes if something is not up-to-date,
-or a misunderstanding on my part.  Please raise an issue.  Ideally, I'd love you
-to give me proof of what you say is true.</p>
+<p>Specification: <a href="http://wiki.ecmascript.org/doku.php?id=harmony:proposals">http://wiki.ecmascript.org/doku.php?id=harmony:proposals</a></p>
+
+<p>Thanks <a href="http://brendaneich.com/">Brendan Eich</a>, Allen Wirfs-Brock, Douglas
+Crockford, Mark Miller, Tom Van Cutsem, Alex Russell, and so many others.</p>

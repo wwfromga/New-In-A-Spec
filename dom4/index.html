@@ -1,14 +1,141 @@
-<h1>What's New in A Spec</h1>
+<h1>DOM4</h1>
+
+<h2>DOM Events</h2>
 
 <ul>
-<li><a href="./dom4">dom4</a></li>
-<li><a href="./es6">es6</a></li>
-<li><a href="./xhr2">xhr2</a></li>
+<li>Events have constructors.</li>
+<li>Event.type has no more restriction.</li>
+<li><code>preventDefault()</code> only changes what <code>defaultPrevented</code> and
+<code>dispatchEvent()</code> return if the event is cancelable.</li>
+<li>No more EventException.</li>
+<li>Fire is no longer synonymous with dispatch, but includes initializing an
+event.</li>
+<li>The propagation and canceled flags are unset when invoking <code>initEvent()</code>
+rather than after dispatch.</li>
 </ul>
 
-<p>We list the new stuff that comes with more recent specifications, relative to
-the previous version (whatever "version" means nowadays).</p>
+<h2>DOM Core</h2>
 
-<p>I will happily receive any request for changes if something is not up-to-date,
-or a misunderstanding on my part.  Please raise an issue.  Ideally, I'd love you
-to give me proof of what you say is true.</p>
+<h3>Document</h3>
+
+<ul>
+<li>readonly attribute DOMString URL;</li>
+<li>readonly attribute DOMString compatMode;</li>
+<li>readonly attribute DOMString characterSet;</li>
+<li>readonly attribute DOMString defaultCharset;</li>
+<li>attribute DOMString charset;</li>
+<li>readonly attribute DOMString contentType;</li>
+<li>NodeList getElementsByClassName(DOMString classNames);</li>
+<li>Event createEvent(DOMString eventInterfaceName);</li>
+<li>Range createRange();</li>
+<li>NodeIterator createNodeIterator(Node root, optional unsigned long
+whatToShow, optional NodeFilter? filter);</li>
+<li>TreeWalker createTreeWalker(Node root, optional unsigned long whatToShow,
+optional NodeFilter? filter);</li>
+</ul>
+
+<h3>Node</h3>
+
+<ul>
+<li>readonly attribute Element? parentElement;</li>
+<li>boolean contains(Node? other);</li>
+</ul>
+
+<h3>Element</h3>
+
+<ul>
+<li>readonly attribute DOMString? namespaceURI;</li>
+<li>readonly attribute DOMString? prefix;</li>
+<li>readonly attribute DOMString localName;</li>
+<li>attribute DOMString id;</li>
+<li>attribute DOMString className;</li>
+<li>readonly attribute DOMTokenList classList;</li>
+<li>readonly attribute Attr[] attributes;</li>
+<li>readonly attribute HTMLCollection children;</li>
+<li>readonly attribute Element? firstElementChild;</li>
+<li>readonly attribute Element? lastElementChild;</li>
+<li>readonly attribute Element? previousElementSibling;</li>
+<li>readonly attribute Element? nextElementSibling;</li>
+<li>readonly attribute unsigned long childElementCount;</li>
+<li>NodeList getElementsByClassName(DOMString classNames);</li>
+</ul>
+
+<h3>Event</h3>
+
+<p>That section corresponds to
+<a href="http://www.w3.org/TR/DOM-Level-2-Events/events.html">DOM Level 2 Events</a>.</p>
+
+<p>The <code>Event</code> interface contains:</p>
+
+<ul>
+<li>void stopImmediatePropagation();</li>
+<li>readonly attribute boolean defaultPrevented;</li>
+<li>readonly attribute boolean isTrusted;</li>
+</ul>
+
+<p>The derived interface <code>CustomEvent</code> contains</p>
+
+<ul>
+<li>readonly attribute any detail;</li>
+</ul>
+
+<p>In the <code>EventTarget</code> interface, the <code>capture</code> parameter is now optional:</p>
+
+<ul>
+<li>void addEventListener(DOMString type, EventListener? listener, optional
+boolean capture);</li>
+<li>void removeEventListener(DOMString type, EventListener? listener, optional
+boolean capture);</li>
+</ul>
+
+<h3>Range</h3>
+
+<p>That interface corresponds to that of <a href="http://www.w3.org/TR/DOM-Level-2-Traversal-Range/ranges.html">DOM Level 2 Range</a>.
+Most of it is a complete ripoff, which is good.</p>
+
+<ul>
+<li>boolean isPointInRange(Node parent, unsigned long offset);</li>
+<li>short comparePoint(nodeparent, unsigned long offset);</li>
+<li>boolean intersectsNode(Node node);</li>
+</ul>
+
+<h3>NodeIterator</h3>
+
+<p>That interface corresponds to that of <a href="http://www.w3.org/TR/DOM-Level-2-Traversal-Range/ranges.html">DOM Level 2 Range</a>.</p>
+
+<ul>
+<li>readonly attribute Node? referenceNode;</li>
+<li>readonly attribute boolean pointerBeforeReferenceNode;</li>
+</ul>
+
+<h3>General considerations</h3>
+
+<ul>
+<li><code>DOMString</code> and `DOMTimeStamp are now defined in WebIDL.</li>
+<li><code>Node</code> inherits from <code>EventTarget</code>.</li>
+<li>Removal of: 
+<ul>
+<li><code>CDATASection</code></li>
+<li><code>DOMConfiguration</code></li>
+<li><code>DOMError</code></li>
+<li><code>DOMErrorHandler</code></li>
+<li><code>DOMImplementationList</code></li>
+<li><code>DOMImplementationSource</code></li>
+<li><code>DOMLocator</code></li>
+<li><code>DOMObject</code></li>
+<li><code>DOMUserData</code></li>
+<li><code>Entity</code></li>
+<li><code>EntityReference</code></li>
+<li><code>NamedNodeMap</code></li>
+<li><code>NameList</code></li>
+<li><code>Notation</code></li>
+<li><code>TypeInfo</code></li>
+<li><code>UserDataHandler</code></li>
+</ul></li>
+</ul>
+
+<hr />
+
+<p>Specification: <a href="http://dvcs.w3.org/hg/domcore/raw-file/tip/Overview.html">http://dvcs.w3.org/hg/domcore/raw-file/tip/Overview.html</a></p>
+
+<p>Thanks Anne Van Kesteren, Aryeh Gregor, Ms2ger.</p>
