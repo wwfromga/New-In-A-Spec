@@ -1,0 +1,107 @@
+<h1>EcmaScript Fifth Edition</h1>
+
+<h1>Object methods</h1>
+
+<ul>
+<li><p><code>Object.getOwnPropertyDescriptor(obj, prop)</code>:
+a property has either a <code>value</code> and three boolean attributes <code>writable</code>,
+<code>enumerable</code> and <code>configurable</code>, or a <code>get</code>-ter and a <code>set</code>-ter.</p>
+
+<p>{
+    value: "foo",
+    writable: true,     // You can modify the value.
+    enumerable: true,   // Will appear in a "for (var i in obj.prop)".
+    configurable: true  // You can change "writable", "enumerable" and
+                        // "configurable"
+  }</p></li>
+<li><p><code>Object.defineProperty(obj, prop, desc)</code>: set the property descriptor (as seen
+above).</p>
+
+<p>Object.defineProperty(obj, 'answer', {
+    get: function() { return 42; },
+    set: function() { throw Error('Truth is immutably 42'); }
+  });</p></li>
+<li><p><code>Object.defineProperties(obj, props)</code>: same as above.</p>
+
+<p>Object.defineProperties(obj, {
+    'prop1': {value: 1337, writable: false},
+    'prop2': {value: 666, enumerable: false}
+  });</p></li>
+<li><p><code>Object.keys(obj)</code>: array of strings of all enumerable properties.</p></li>
+<li><p><code>Object.getOwnPropertyNames(obj)</code>: array of strings of all properties
+(including non-enumerable ones).</p></li>
+<li><p><code>Object.create(proto, props)</code>: inherit a new object from the object <code>proto</code>.</p>
+
+<p>var mum = Object.create({}, {common: {value:5}, overriden: {value:7}});
+  var baby = Object.create(mum, {overriden: {value:8}});</p></li>
+<li><p><code>Object.getPrototypeOf(obj)</code>: self-descriptive.</p></li>
+<li><p><code>Object.preventExtensions(obj)</code>: now you can't add properties to <code>obj</code>.</p></li>
+<li><p><code>Object.isExtensible(obj)</code></p></li>
+<li><p><code>Object.seal(obj)</code>: now you can't delete or add any properties, and you can't
+change their descriptors (but you can change their values).</p></li>
+<li><p><code>Object.isSealed(obj)</code></p></li>
+<li><p><code>Object.freeze(obj)</code>: now you can't delete, add, or change any property.</p></li>
+<li><p><code>Object.isFrozen(obj)</code></p></li>
+</ul>
+
+<h1>Array awesomeness</h1>
+
+<ul>
+<li><code>arr.indexOf(searchElement [, fromIndex])</code></li>
+<li><code>arr.lastIndexOf(...)</code></li>
+<li><code>arr.every(callbackfn [, thisArg])</code></li>
+<li><code>arr.some(callbackfn [, thisArg])</code></li>
+<li><code>arr.forEach(callbackfn [, thisArg])</code></li>
+<li><code>arr.map(callbackfn [, thisArg])</code></li>
+<li><code>arr.filter(callbackfn [, thisArg])</code></li>
+<li><code>arr.reduce(callbackfn [, initialValue])</code></li>
+<li><code>arr.reduceRight(...)</code></li>
+</ul>
+
+<h1>Strict mode</h1>
+
+<p>How to use it?
+Write the following instruction:</p>
+
+<pre><code>  "use strict";
+</code></pre>
+
+<p>What does it do?</p>
+
+<ul>
+<li>You need to use <code>var</code> to introduce new variables.</li>
+<li>You can't override the <code>eval</code> function.</li>
+<li>You can't introduce new variables in an <code>eval</code>.</li>
+<li>Functions lose their <code>arguments.caller</code> and <code>arguments.callee</code>.</li>
+<li><code>with</code> statements become a syntax error.</li>
+</ul>
+
+<h1>JSON</h1>
+
+<ul>
+<li><code>JSON.parse('{"some": "data"}')</code> → <code>{some: "data"}</code></li>
+<li><code>JSON.stringify({foo:undefined, bar:null})</code> → <code>'{"bar":null}'</code></li>
+</ul>
+
+<h1>Miscellaneous</h1>
+
+<ul>
+<li><code>"\t Foo! ".trim()</code> → <code>"Foo!"</code></li>
+<li><code>func.bind(thisArg)</code>: returns a function that runs <code>func</code>, with <code>this</code> bound
+as <code>thisArg</code>.</li>
+</ul>
+
+<h1>Worth noting</h1>
+
+<ul>
+<li>All this is implemented in all browsers (yes, IE included ^^).</li>
+<li>If you want to support IE6, there is
+a <a href="http://github.com/kriskowal/es5-shim">polyfills for that</a>!</li>
+</ul>
+
+<p>Standard available <a href="http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-262.pdf">at
+ECMA</a>.</p>
+
+<p>My dearest thanks go to <a href="http://brendaneich.com/">Brendan Eich</a>, Allen
+Wirfs-Brock, Douglas Crockford, Mark Miller, Tom Van Cutsem, Alex Russell, and
+so many others.</p>
